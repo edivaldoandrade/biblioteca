@@ -34,6 +34,7 @@
 
 <?= $v->section("content"); ?>
 
+<script src="<?= asset("js/jquery-3.2.1.min.js"); ?>"></script>
 <?php if ($v->section("scripts")):
     echo $v->section("scripts");
 endif; ?>

@@ -8,6 +8,7 @@ use CoffeeCode\Paginator\Paginator;
 use Source\Controllers\Controller;
 use Source\Models\CartaoAssociado;
 use Source\Models\Emprestimo;
+use Source\Models\Material\Ata;
 use Source\Models\Material\Material;
 use Source\Models\Pedido;
 
@@ -82,6 +83,31 @@ class Admin extends Controller
             "head" => $head,
             "lista" => $lista->limit($paginator->limit())->offset($paginator->offset())->fetch(true),
             "paginator" => $paginator
+        ]);
+    }
+
+    public function atas(): void
+    {
+        $itens = new Ata();
+        $page = filter_input(INPUT_GET, "page", FILTER_SANITIZE_STRIPPED);
+
+        $paginator = new Paginator();
+        $paginator->pager($itens->find()->count(), 5, $page, 1);
+
+        $lista = $itens->find()->order("id DESC");
+
+        $head = $this->seo->optimize(
+            site("name") . " - Dashboard",
+            site("descAdmin"),
+            $this->router->route("admin.atas"),
+            routeImage("Dashboard")
+        )->render();
+
+        echo $this->view->render("admin/pages/tiposMateriais", [
+            "head" => $head,
+            "lista" => $lista->limit($paginator->limit())->offset($paginator->offset())->fetch(true),
+            "paginator" => $paginator,
+            "title" => "Atas"
         ]);
     }
 
