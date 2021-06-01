@@ -1,0 +1,29 @@
+{
+  "name": "william/biblioteca",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "william",
+      "email": "email@example.com"
+    }
+  ],
+  "autoload":{
+    "psr-4": {
+      "Source\\":"source/"
+    },
+    "files":[
+      "source/Config.php",
+      "source/Helpers.php"
+    ]
+  },
+  "require": {
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "coffeecode/router": "1.0.*",
+    "coffeecode/datalayer": "1.1.*",
+    "coffeecode/optimizer": "2.0.*",
+    "coffeecode/paginator": "1.0.*",
+    "league/plates": "4.0.0-alpha"
+  }
+}
