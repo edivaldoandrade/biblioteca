@@ -1,10 +1,10 @@
 /* global swal */
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $(".ajaxForm").submit(function(e) {
+    $(".ajaxForm").submit(function (e) {
         e.preventDefault();
-        
+
         var form = $(this);
 
         var type = form.attr('data-form');
@@ -12,9 +12,9 @@ $(document).ready(function(){
         var method = form.attr('method');
 
         var formData = new FormData(this);
- 
+
         var textoAlerta;
-        
+
         if (type === "registrar") {
             textoAlerta = "Os dados serão armazenados no sistema.";
         } else if (type === "remover") {
@@ -22,12 +22,12 @@ $(document).ready(function(){
         } else if (type === "actualizar") {
             textoAlerta = "Os dados no sistema serão actualizados.";
         }
-        
+
         swal({
-            title: "Está seguro?",   
-            text: textoAlerta,   
-            type: "question",   
-            showCancelButton: true,     
+            title: "Está seguro?",
+            text: textoAlerta,
+            type: "question",
+            showCancelButton: true,
             confirmButtonText: "Aceitar",
             cancelButtonText: "Cancelar"
         }).then(function () {
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 contentType: false,
                 processData: false,
                 success: function (callback) {
-                    if(callback.type==="success"){
+                    if (callback.type === "success") {
                         swal({
                             title: "Sucesso!",
                             text: callback.message,
@@ -48,7 +48,7 @@ $(document).ready(function(){
                         }).then(function () {
                             location.reload();
                         });
-                    }else{
+                    } else {
                         swal({
                             title: "Atenção!",
                             text: callback.message,
@@ -56,7 +56,7 @@ $(document).ready(function(){
                         });
                     }
                 },
-                error: function() {
+                error: function () {
                     swal(
                         "Ocorreu um erro",
                         "Não foi possível efectuar a operação",
@@ -67,13 +67,13 @@ $(document).ready(function(){
             return false;
         });
     });
-    
+
     /*****************************************************************/
-    
+
     $('.remove').click(function (e) {
         e.preventDefault();
     });
-    
+
     $('.remove').each(function () {
 
         $(this).click(function () {
@@ -97,7 +97,7 @@ $(document).ready(function(){
                     dataType: "json",
                     cache: false,
                     processData: false,
-                    success: function (callback){
+                    success: function (callback) {
                         if (callback.type === "success") {
                             content.fadeOut();
                             swal({
@@ -113,7 +113,7 @@ $(document).ready(function(){
                             });
                         }
                     },
-                    error: function() {
+                    error: function () {
                         swal(
                             "Ocorreu um erro",
                             "Não foi possível efectuar a operação",
@@ -124,6 +124,61 @@ $(document).ready(function(){
             });
         });
     });
-    
+
     /****************************************************/
+
+
+    $('.add').click(function (e) {
+        e.preventDefault();
+    });
+
+    $('.add').each(function () {
+
+        $(this).click(function () {
+
+            var content = $(this).parent().parent().parent();
+            var data = $(this).data();
+
+            swal({
+                title: "Tem a certeza?",
+                text: "O material será solicitado.",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#67f403',
+                cancelButtonColor: '#858282',
+                confirmButtonText: 'Sim, solicitar!',
+                cancelButtonText: 'Não, cancelar!'
+            }).then(function () {
+                $.ajax({
+                    url: data.action,
+                    type: "post",
+                    dataType: "json",
+                    cache: false,
+                    processData: false,
+                    success: function (callback) {
+                        if (callback.type === "success") {
+                            swal({
+                                title: "Sucesso!",
+                                text: callback.message,
+                                type: callback.type
+                            });
+                        } else {
+                            swal({
+                                title: "Atenção!",
+                                text: callback.message,
+                                type: callback.type
+                            });
+                        }
+                    },
+                    error: function () {
+                        swal(
+                            "Ocorreu um erro",
+                            "Não foi possível efectuar a operação",
+                            "error"
+                        );
+                    }
+                });
+            });
+        });
+    });
 });

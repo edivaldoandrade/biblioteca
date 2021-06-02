@@ -9,7 +9,7 @@
 </section>
 
 <div>
-    <h3>Usuários Cadastrados</h3>
+    <h3>Usuários Registrados</h3>
 
     <?php if (!empty($lista)): ?>
         <table>

@@ -85,7 +85,7 @@ class Material extends Controller
             $dados["editoral"],
             $dados["quantidade"],
             $preço
-        );;
+        );
 
         if (!$material->save()) {
             $callback["message"] = $material->fail()->getMessage();

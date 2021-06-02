@@ -5,6 +5,7 @@ namespace Source\Controllers\App;
 
 
 use Source\Controllers\Controller;
+use Source\Models\Material\Material;
 use Source\Models\Usuario;
 
 class App extends Controller
@@ -32,7 +33,8 @@ class App extends Controller
 
         echo $this->view->render("app/pages/home", [
             "head" => $head,
-            "usuario" => $this->usuario
+            "usuario" => $this->usuario,
+            "materiais" => (new Material())->find()->limit(8)->fetch(true)
         ]);
     }
 

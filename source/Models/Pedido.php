@@ -25,4 +25,9 @@ class Pedido extends DataLayer
         return (new Material())->findById($this->id_material);
     }
 
+    public function contagemEmprestimos(): int
+    {
+        return (new Emprestimo())->find("id_pedido = :idp", "idp={$this->id}")->count();
+    }
+
 }

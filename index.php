@@ -15,9 +15,9 @@ $router->namespace("Source\Controllers");
 
 $router->group(null);
 $router->group("order");
-$router->post("/register", "Pedido:registrar", "pedido.registrar");
-$router->post("/update", "Pedido:update", "pedido.update");
-$router->post("/delete/{id}", "Pedido:delete", "pedido.delete");
+$router->post("/register/{id}", "Pedido:registrar", "pedido.registrar");
+$router->post("/update/", "Pedido:actualizar", "pedido.actualizar");
+$router->post("/delete/{id}", "Pedido:remover", "pedido.remover");
 
 
 /*
@@ -28,13 +28,11 @@ $router->namespace("Source\Controllers\App");
 $router->group(null);
 
 $router->get("/", "App:home", "app.home");
-//$router->get("/exemplo", "App:exemplo", "app.exemplo");
 
 /* materiais */
 $router->group(null);
 $router->group("catalogo");
 $router->get("/", "App:catalogo", "app.catalogo");
-//$router->get("/{categoria}", "App:categoriaMaterial", "app.categoriaMaterial");
 
 //$router->get("/procurar/{search}", "App:procurarMaterial", "app.procurarMaterial");
 
@@ -69,12 +67,13 @@ $router->group(null);
 
 $router->group("admin");
 $router->get("/", "Admin:home", "admin.home");
+$router->get("/alineas", "Admin:alineas", "admin.alineas");
+$router->get("/alineaC/{id}", "Admin:alineaC", "admin.alineaC");
 
 $router->get("/usuarios", "Admin:usuarios", "admin.usuarios");
 
 /* Materiais */
 $router->get("/materiais", "Admin:materiais", "admin.materiais");
-$router->get("/materiais/{id}", "Admin:verMaterial", "admin.verMaterial");
 $router->get("/materiais/atas", "Admin:atas", "admin.atas");
 $router->get("/materiais/livros", "Admin:livros", "admin.livros");
 $router->get("/materiais/revistas", "Admin:revistas", "admin.revistas");
@@ -86,11 +85,12 @@ $router->post("/materials/delete/{id}", "Material:remover", "material.remover");
 
 /* Pedidos */
 $router->get("/pedidos", "Admin:pedidos", "admin.pedidos");
-$router->get("/pedidos/{id}", "Admin:verPedido", "admin.verPedido");
 $router->get("/pedidos/editar/{id}", "Admin:actualizarPedido", "admin.actualizarPedido");
 
 /* Emprestimos */
 $router->get("/emprestimos", "Admin:emprestimos", "admin.emprestimos");
+
+$router->post("/loan/delete/{id}", "Emprestimo:remover", "emprestimo.remover");
 
 /* Erro ao aceder */
 $router->get("/erro", "Admin:erro", "admin.erro");

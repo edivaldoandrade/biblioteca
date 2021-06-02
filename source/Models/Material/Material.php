@@ -5,6 +5,8 @@ namespace Source\Models\Material;
 
 
 use CoffeeCode\DataLayer\DataLayer;
+use Source\Models\Emprestimo;
+use Source\Models\Pedido;
 
 class Material extends DataLayer
 {
@@ -40,6 +42,30 @@ class Material extends DataLayer
         if ($revista = (new Revista())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
             return $revista;
         }
+    }
+
+    //Alínea b)
+    public function contagemMaterialSolicitado(): int
+    {
+        return (new Pedido())->find("id_material = :idm", "idm={$this->id}")->count();
+    }
+
+    public function montanteEmprestimo()
+    {
+        $sum = 0;
+
+        $listaPedidos = (new Pedido())->find("id_material = :idm", "idm={$this->id}")->fetch(true);
+        if (!$listaPedidos) {
+            return $sum;
+        }
+
+        foreach ($listaPedidos as $pedido) {
+            if((new Emprestimo())->find("id_pedido = :idp", "idp={$pedido->data()->id}")->count()){
+                $sum += 1;
+            }
+        }
+
+        return $sum;
     }
 
 

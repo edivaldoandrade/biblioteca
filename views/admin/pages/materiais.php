@@ -9,7 +9,7 @@
 </section>
 
 <div>
-    <h3>Materiais Cadastrados</h3>
+    <h3>Materiais Registrados</h3>
 
     <?php if (!empty($lista)): ?>
         <table>

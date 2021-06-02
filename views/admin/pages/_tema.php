@@ -19,6 +19,8 @@
     <li><a href="<?= $router->route("app.home"); ?>">Início</a></li>
     <li><a href="<?= $router->route("admin.home"); ?>">Dashboard</a></li>
     <br>
+    <li><a href="<?= $router->route("admin.alineas"); ?>">Alineas</a></li>
+    <br>
     <li><a href="<?= $router->route("admin.usuarios"); ?>">Usuários</a></li>
     <li>
         <a href="<?= $router->route("admin.materiais"); ?>">Materiais</a>

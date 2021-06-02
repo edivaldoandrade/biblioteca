@@ -44,28 +44,28 @@
         <?php if (!empty($materiais)): ?>
             <table>
                 <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Autor</th>
-                        <th>Ano de Publicação</th>
-                        <th>Ano de Chegada</th>
-                        <th>Editora</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                    </tr>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Autor</th>
+                    <th>Ano de Publicação</th>
+                    <th>Ano de Chegada</th>
+                    <th>Editora</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($materiais as $material): ?>
-                        <tr style="background-color: #dcdcdc;">
-                            <td><?= $material->titulo ?></td>
-                            <td><?= $material->autor ?></td>
-                            <td><?= $material->ano_publicacao ?></td>
-                            <td><?= $material->ano_chegada ?></td>
-                            <td><?= $material->editorial ?></td>
-                            <td><?= $material->quantidade ?></td>
-                            <td><?= number_format($material->preco, 2, ",", " ") ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($materiais as $material): ?>
+                    <tr style="background-color: #dcdcdc;">
+                        <td><?= $material->titulo ?></td>
+                        <td><?= $material->autor ?></td>
+                        <td><?= $material->ano_publicacao ?></td>
+                        <td><?= $material->ano_chegada ?></td>
+                        <td><?= $material->editorial ?></td>
+                        <td><?= $material->quantidade ?></td>
+                        <td><?= number_format($material->preco, 2, ",", " ") ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -79,24 +79,24 @@
         <?php if (!empty($pedidos)): ?>
             <table>
                 <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Preço</th>
-                        <th>Usuário</th>
-                        <th>Data do pedido</th>
-                        <th>Estado</th>
-                    </tr>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Preço</th>
+                    <th>Usuário</th>
+                    <th>Data do pedido</th>
+                    <th>Estado</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($pedidos as $pedido): ?>
-                        <tr style="background-color: #dcdcdc;">
-                            <td><?= $pedido->material()->titulo ?></td>
-                            <td><?= $pedido->material()->preco ?></td>
-                            <td><?= $pedido->associado()->nome ?></td>
-                            <td><?= strftime('%d/%m/%Y, %T', strtotime($pedido->created_at)) ?></td>
-                            <td><?= $pedido->estado ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($pedidos as $pedido): ?>
+                    <tr style="background-color: #dcdcdc;">
+                        <td><?= $pedido->material()->titulo ?></td>
+                        <td><?= $pedido->material()->preco ?></td>
+                        <td><?= $pedido->associado()->nome ?></td>
+                        <td><?= strftime('%d/%m/%Y, %T', strtotime($pedido->created_at)) ?></td>
+                        <td><?= $pedido->estado ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -110,18 +110,18 @@
         <?php if (!empty($emprestimos)): ?>
             <table>
                 <thead>
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Usuário</th>
-                    </tr>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Usuário</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($emprestimos as $emprestimo): ?>
-                        <tr style="background-color: #dcdcdc;">
-                            <td><?= $emprestimo->pedido()->material()->titulo ?></td>
-                            <td><?= $emprestimo->pedido()->associado()->nome ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                <?php foreach ($emprestimos as $emprestimo): ?>
+                    <tr style="background-color: #dcdcdc;">
+                        <td><?= $emprestimo->pedido()->material()->titulo ?></td>
+                        <td><?= $emprestimo->pedido()->associado()->nome ?></td>
+                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
