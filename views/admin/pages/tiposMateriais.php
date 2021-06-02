@@ -5,11 +5,11 @@
 <?php $v->end(); ?>
 
 <section>
-    <h1>Materiais</h1>
+    <h1><?= $title ?></h1>
 </section>
 
 <div>
-    <h3>Materiais Cadastrados</h3>
+    <h3>Registrados</h3>
 
     <?php if (!empty($lista)): ?>
         <table>
@@ -22,18 +22,26 @@
                 <th>Editora</th>
                 <th>Quantidade</th>
                 <th>Preço</th>
+                <?php if ($title === "Atas"): echo "<th>Congresso</th>"; endif; ?>
+                <?php if ($title === "Livros"): echo "<th>Gênero</th>"; endif; ?>
+                <?php if ($title === "Revistas"): echo "<th>Frequência de publicação</th>"; endif; ?>
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($lista as $material): ?>
+            <?php foreach ($lista as $item): ?>
                 <tr style="background-color: #dcdcdc;">
-                    <td><?= $material->titulo ?></td>
-                    <td><?= $material->autor ?></td>
-                    <td><?= $material->ano_publicacao ?></td>
-                    <td><?= $material->ano_chegada ?></td>
-                    <td><?= $material->editorial ?></td>
-                    <td><?= $material->quantidade ?></td>
-                    <td><?= number_format($material->preco, 2, ",", " ") ?></td>
+                    <td><?= $item->material()->titulo ?></td>
+                    <td><?= $item->material()->autor ?></td>
+                    <td><?= $item->material()->ano_publicacao ?></td>
+                    <td><?= $item->material()->ano_chegada ?></td>
+                    <td><?= $item->material()->editorial ?></td>
+                    <td><?= $item->material()->quantidade ?></td>
+                    <td><?= number_format($item->material()->preco, 2, ",", " ") ?></td>
+                    <td>
+                        <?php if ($title === "Atas"): echo $item->material()->tipoMaterial()->nome_congresso; endif; ?>
+                        <?php if ($title === "Livros"): echo $item->material()->tipoMaterial()->genero()->nome; endif; ?>
+                        <?php if ($title === "Revistas"): echo $item->material()->tipoMaterial()->frequenciaPublicacao()->frequencia; endif; ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -44,91 +52,5 @@
     <?php endif; ?>
 </div>
 
-<section>
-    <div>
-        <h3>Registrar Material</h3>
-        <div class="login_form_callback">
-            <?= flash(); ?>
-        </div>
-        <form class="form" action="<?= $router->route("material.registrar"); ?>" method="post">
-            <div>
-                <input type="text" name="titulo" required placeholder="Título *">
-            </div>
-            <div>
-                <input type="text" name="autor" required placeholder="Autor *">
-            </div>
-            <div>
-                <input type="number" name="ano_publicacao" required placeholder="Ano da publicação *">
-            </div>
-            <div>
-                <input type="number" name="ano_chegada" required placeholder="Ano de chegada na biblioteca *">
-            </div>
-            <div>
-                <input type="text" name="editoral" required placeholder="Editora *">
-            </div>
-            <div>
-                <input type="number" name="quantidade" required placeholder="Quantidade *">
-            </div>
-            <div>
-                <label>Tipo *</label>
-                <div>
-                    <label>
-                        <input type="radio" name="tipo" required value="ata">
-                        <span>Ata</span>
-                    </label>
-                    <label>
-                        <input id="tipo_livro" type="radio" name="tipo" required value="livro">
-                        <span>Livro</span>
-                    </label>
-                    <label>
-                        <input id="tipo_revista" type="radio" name="tipo" required value="revista">
-                        <span>Revista</span>
-                    </label>
-                </div>
-            </div>
-            <div class="categoria">
-
-            </div>
-            <div>
-                <button type="submit" value="submit">
-                    Registrar
-                </button>
-            </div>
-        </form>
-    </div>
-</section>
-
 <?php $v->start("scripts") ?>
-<script src="<?= asset("js/jquery-ui.min.js"); ?>"></script>
-<script src="<?= asset("js/form.js"); ?>"></script>
-
-<script>
-    $('input[name="tipo"]').on('change', function () {
-
-        var valorRadio = $('input[name="tipo"]:checked').val()
-        var categoriaDiv = $('.categoria')
-
-        if (valorRadio === "ata") {
-            categoriaDiv.html('' +
-                '<label><input type="text" name="categoria" required> ' +
-                '<span>Nome do Congresso</span></label>')
-        } else if (valorRadio === "livro") {
-            categoriaDiv.html('' +
-                '<select name="categoria" required>' +
-                '<option selected disabled>Gênero</option>' +
-                '<option value="criancas">Crianças</option>' +
-                '<option value="ficcao">Ficção Científica</option>' +
-                '<option value="historia">História Antiga</option>' +
-                '</select>')
-        } else if (valorRadio === "revista") {
-            categoriaDiv.html('' +
-                '<select name="categoria" required>' +
-                '<option selected disabled>Frequênia de Publicação</option>' +
-                '<option value="trimestral">Trimestral</option>' +
-                '<option value="semestral">Semestral</option>' +
-                '<option value="anual">Anual</option>' +
-                '</select>')
-        }
-    });
-</script>
 <?php $v->end(); ?>

@@ -14,7 +14,7 @@ $(function () {
             success: function (su) {
                 if (su.message) {
                     var view = '\
-                            <div class="message sufee-alert with-close alert-dismissible fade show ' + su.message.type + '">\n\
+                            <div class="message fade show ' + su.message.type + '">\n\
                                 ' + su.message.message + '\n\
                             </div>\n\
                         ';

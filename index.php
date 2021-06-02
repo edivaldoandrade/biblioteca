@@ -10,6 +10,16 @@ use CoffeeCode\Router\Router;
 $router = new Router(site());
 
 
+/* Global */
+$router->namespace("Source\Controllers");
+
+$router->group(null);
+$router->group("order");
+$router->post("/register", "Pedido:registrar", "pedido.registrar");
+$router->post("/update", "Pedido:update", "pedido.update");
+$router->post("/delete/{id}", "Pedido:delete", "pedido.delete");
+
+
 /*
  * WEB
  */
@@ -68,18 +78,16 @@ $router->get("/materiais/{id}", "Admin:verMaterial", "admin.verMaterial");
 $router->get("/materiais/atas", "Admin:atas", "admin.atas");
 $router->get("/materiais/livros", "Admin:livros", "admin.livros");
 $router->get("/materiais/revistas", "Admin:revistas", "admin.revistas");
+$router->get("/materiais/editar/{id}", "Admin:actualizarMaterial", "admin.actualizarMaterial");
 
 $router->post("/materials/register", "Material:registrar", "material.registrar");
 $router->post("/materials/update", "Material:actualizar", "material.actualizar");
-$router->post("/materials/delete/{id}", "Material:deletar", "material.deletar");
+$router->post("/materials/delete/{id}", "Material:remover", "material.remover");
 
 /* Pedidos */
 $router->get("/pedidos", "Admin:pedidos", "admin.pedidos");
 $router->get("/pedidos/{id}", "Admin:verPedido", "admin.verPedido");
 $router->get("/pedidos/editar/{id}", "Admin:actualizarPedido", "admin.actualizarPedido");
-
-$router->post("/order/update", "AdminPedido:update", "adminPedido.update");
-$router->post("/order/delete/{id}", "AdminPedido:delete", "adminPedido.delete");
 
 /* Emprestimos */
 $router->get("/emprestimos", "Admin:emprestimos", "admin.emprestimos");

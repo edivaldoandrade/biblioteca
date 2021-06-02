@@ -1,7 +1,7 @@
 <?php $v->layout("admin/pages/_tema"); ?>
 
 <?php $v->start("links") ?>
-
+<link rel="stylesheet" href="<?= assetAdmin("css/sweetalert2.css"); ?>">
 <?php $v->end(); ?>
 
 <section>
@@ -22,6 +22,7 @@
                 <th>Editora</th>
                 <th>Quantidade</th>
                 <th>Preço</th>
+                <th>Acções</th>
             </tr>
             </thead>
             <tbody>
@@ -34,6 +35,19 @@
                     <td><?= $material->editorial ?></td>
                     <td><?= $material->quantidade ?></td>
                     <td><?= number_format($material->preco, 2, ",", " ") ?></td>
+                    <td>
+                        <div>
+                            <a href="<?= $router->route("admin.actualizarMaterial", ["id" => $material->id]); ?>">
+                                Editar
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#" class="remove"
+                               data-action="<?= $router->route("material.remover", ["id" => $material->id]); ?>">
+                                Remover
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -47,10 +61,8 @@
 <section>
     <div>
         <h3>Registrar Material</h3>
-        <div class="login_form_callback">
-            <?= flash(); ?>
-        </div>
-        <form class="form" action="<?= $router->route("material.registrar"); ?>" method="post">
+        <form class="ajaxForm" action="<?= $router->route("material.registrar"); ?>" method="post"
+              data-form="registrar">
             <div>
                 <input type="text" name="titulo" required placeholder="Título *">
             </div>
@@ -99,8 +111,8 @@
 </section>
 
 <?php $v->start("scripts") ?>
-<script src="<?= asset("js/jquery-ui.min.js"); ?>"></script>
-<script src="<?= asset("js/form.js"); ?>"></script>
+<script src="<?= assetAdmin("js/sweetalert2.min.js") ?>"></script>
+<script src="<?= assetAdmin("js/sweet.js") ?>"></script>
 
 <script>
     $('input[name="tipo"]').on('change', function () {

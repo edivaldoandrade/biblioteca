@@ -25,21 +25,22 @@ class Material extends DataLayer
 
         return $this;
     }
-    /*
-        public function material()
-        {
-            if ($livro = (new Livro())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
-                return $livro;
-            }
 
-            if ($livro = (new Revista())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
-                return $revista;
-            }
+    public function tipoMaterial()
+    {
 
-            if ($ata = (new Ata())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
-                return $ata;
-            }
+        if ($ata = (new Ata())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
+            return $ata;
         }
-    */
+
+        if ($livro = (new Livro())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
+            return $livro;
+        }
+
+        if ($revista = (new Revista())->find("id_material = :idm", "idm={$this->id}")->fetch()) {
+            return $revista;
+        }
+    }
+
 
 }

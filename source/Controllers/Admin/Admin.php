@@ -9,7 +9,9 @@ use Source\Controllers\Controller;
 use Source\Models\CartaoAssociado;
 use Source\Models\Emprestimo;
 use Source\Models\Material\Ata;
+use Source\Models\Material\Livro;
 use Source\Models\Material\Material;
+use Source\Models\Material\Revista;
 use Source\Models\Pedido;
 
 class Admin extends Controller
@@ -111,20 +113,96 @@ class Admin extends Controller
         ]);
     }
 
+    public function livros(): void
+    {
+        $itens = new Livro();
+        $page = filter_input(INPUT_GET, "page", FILTER_SANITIZE_STRIPPED);
+
+        $paginator = new Paginator();
+        $paginator->pager($itens->find()->count(), 5, $page, 1);
+
+        $lista = $itens->find()->order("id DESC");
+
+        $head = $this->seo->optimize(
+            site("name") . " - Dashboard",
+            site("descAdmin"),
+            $this->router->route("admin.livros"),
+            routeImage("Dashboard")
+        )->render();
+
+        echo $this->view->render("admin/pages/tiposMateriais", [
+            "head" => $head,
+            "lista" => $lista->limit($paginator->limit())->offset($paginator->offset())->fetch(true),
+            "paginator" => $paginator,
+            "title" => "Livros"
+        ]);
+    }
+
+    public function revistas(): void
+    {
+        $itens = new Revista();
+        $page = filter_input(INPUT_GET, "page", FILTER_SANITIZE_STRIPPED);
+
+        $paginator = new Paginator();
+        $paginator->pager($itens->find()->count(), 5, $page, 1);
+
+        $lista = $itens->find()->order("id DESC");
+
+        $head = $this->seo->optimize(
+            site("name") . " - Dashboard",
+            site("descAdmin"),
+            $this->router->route("admin.revistas"),
+            routeImage("Dashboard")
+        )->render();
+
+        echo $this->view->render("admin/pages/tiposMateriais", [
+            "head" => $head,
+            "lista" => $lista->limit($paginator->limit())->offset($paginator->offset())->fetch(true),
+            "paginator" => $paginator,
+            "title" => "Revistas"
+        ]);
+    }
+
+    public function actualizarMaterial($data): void
+    {
+
+        $id = filter_var($data["id"], FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            $this->router->redirect("admin.erro");
+        }
+
+        $item = (new Material())->findById($id);
+
+        if (!$item) {
+            $this->router->redirect("admin.erro");
+        }
+
+        $head = $this->seo->optimize(
+            site("name") . " - Dashboard",
+            site("descAdmin"),
+            $this->router->route("admin.actualizarMaterial"),
+            routeImage("Dashboard"),
+            false
+        )->render();
+
+        echo $this->view->render("admin/pages/actualizarMaterial", [
+            "head" => $head,
+            "material" => $item
+        ]);
+    }
+
     public function erro($dados): void
     {
-        $erro = filter_var($dados["errcode"], FILTER_VALIDATE_INT);
-
         $head = $this->seo->optimize(
             site("name") . " - Oooops!",
             site("descAdmin"),
-            $this->router->route("admin.erro", ["errcode" => $erro]),
-            routeImage($erro)
+            $this->router->route("admin.erro"),
+            routeImage("Erro")
         )->render();
 
         echo $this->view->render("admin/pages/erro", [
-            "head" => $head,
-            "erro" => $erro
+            "head" => $head
         ]);
     }
 }

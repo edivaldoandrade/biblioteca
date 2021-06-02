@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>Ooops, erro <?= $erro; ?></h1>
+<h1>Ooops, ocorreu um erro!</h1>
 <p>Desculpe por isso, caso o problema persista, por favor entre em contato connosco.</p>
 <p><a href="<?= $router->route("app.home"); ?>">Voltar!</a></p>
 <p><a href="<?= $router->route("admin.home"); ?>">Voltar a Dashboard!</a></p>

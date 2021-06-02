@@ -10,7 +10,7 @@
 
 <div>
     <div>
-        <h3>Últimos Usuários Cadastrados</h3>
+        <h3>Últimos Usuários Registrados</h3>
 
         <?php if (!empty($usuarios)): ?>
             <table>
@@ -39,7 +39,7 @@
     </div>
 
     <div>
-        <h3>Últimos Materiais Cadastrados</h3>
+        <h3>Últimos Materiais Registrados</h3>
 
         <?php if (!empty($materiais)): ?>
             <table>
@@ -74,7 +74,7 @@
     </div>
 
     <div>
-        <h3>Últimos Pedidos Cadastrados</h3>
+        <h3>Últimos Pedidos Registrados</h3>
 
         <?php if (!empty($pedidos)): ?>
             <table>
@@ -105,7 +105,7 @@
     </div>
 
     <div>
-        <h3>Últimos Pedidos cadastrados</h3>
+        <h3>Últimos Emprestimos Registrados</h3>
 
         <?php if (!empty($emprestimos)): ?>
             <table>
